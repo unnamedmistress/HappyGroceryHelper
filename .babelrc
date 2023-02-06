@@ -1,8 +1,12 @@
 {
   "presets": [
-    "@babel/preset-env"
+    "@babel/preset-react"
   ],
-  "experiments": {
-    "topLevelAwait": true
+  "env": {
+    "development": {
+      "experiments": {
+        "topLevelAwait": true
+      }
+    }
   }
 }
