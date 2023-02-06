@@ -1,6 +1,12 @@
 import { Configuration, OpenAIApi } from "openai";
 const [showShoppingList, setShowShoppingList] = useState(false);
 import { useState } from 'react';
+module.exports = {
+  experiments: {
+    topLevelAwait: true,
+  },
+ };
+ 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
