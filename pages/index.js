@@ -66,20 +66,20 @@ export default function Home() {
           Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.
         </p>
  <p>Give me a few seconds, I'm new and a little slow</p>
-{result.split('\n').map((meal, i) => {
-  return (
-    <div key={i}>
-      <input type="checkbox" value={meal} onChange={(e) => {
-        const selected = e.target.value;
-        if (selectedValues.includes(selected)) {
-          setSelectedValues(selectedValues.filter((value) => value !== selected));
-        } else {
-          setSelectedValues([...selectedValues, selected]);
-        }
-      }} />
-      {meal}
-    </div>
-  );
+ {result.map((meal, i) => {
+return (
+<div key={i}>
+<input type="checkbox" value={meal} onChange={(e) => {
+const selected = e.target.value;
+if (selectedValues.includes(selected)) {
+setSelectedValues(selectedValues.filter((value) => value !== selected));
+} else {
+setSelectedValues([...selectedValues, selected]);
+}
+}} />
+{meal}
+</div>
+);
 })}
 
 <button onClick={() => setShowShoppingList(true)}>
