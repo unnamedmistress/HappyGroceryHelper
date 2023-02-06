@@ -28,7 +28,6 @@ export default function Home() {
     setTextInput("");
   } catch(error) {
     console.error(error);
-    alert(error.message);
   }
   }
 
@@ -67,15 +66,40 @@ export default function Home() {
           Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.
         </p>
  <p>Give me a few seconds, I'm new and a little slow</p>
+{result.split('\n').map((meal, i) => {
+  return (
+    <div key={i}>
+      <input type="checkbox" value={meal} onChange={(e) => {
+        const selected = e.target.value;
+        if (selectedValues.includes(selected)) {
+          setSelectedValues(selectedValues.filter((value) => value !== selected));
+        } else {
+          setSelectedValues([...selectedValues, selected]);
+        }
+      }} />
+      {meal}
+    </div>
+  );
+})}
 
- {result.length > 0 && (
-  <>
-    <h4>API Results:</h4>
-    {result.split(".").map((sentence, index) => (
-      <p key={index}>{index + 1 + ". " + sentence}</p>
-    ))}
-  </>
+<button onClick={() => setShowShoppingList(true)}>
+  Show Shopping List
+</button>
+
+{showShoppingList && (
+  <div>
+    <h3>Shopping List</h3>
+    <ul>
+      {selectedValues.map((value, i) => (
+        <li key={i}>{value}</li>
+      ))}
+    </ul>
+  </div>
 )}
+  <div>
+    <div>{mealList}</div>
+    <div>{shoppingList}</div>
+  </div>
 </main>
 <footer className={styles.footer}>
 </footer>

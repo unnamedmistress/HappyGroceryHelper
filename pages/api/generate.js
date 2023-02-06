@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
-
+const [showShoppingList, setShowShoppingList] = useState(false);
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -40,5 +40,57 @@ export default async function (req, res) {
         }
       });
     }
+  }
+}async function onSubmit(event) {
+  event.preventDefault();
+  const [mealList, setMealList] = useState("");
+  const [shoppingList, setShoppingList] = useState("");
+
+  try {
+    // API call for meal list
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "text-davinci-003",
+        prompt: "show a list of top 20 easy meals for this diet type, less than 6 ingredients, include at least two breakfasts in the list but don't label it as 'breakfast', number the options 1-20" + selectedValues,
+        max_tokens: 250,
+        temperature: 0,
+      }),
+    });
+
+    const data = await response.json();
+    if (response.status !== 200) {
+      throw data.error || new Error(`Request failed with status ${response.status}`);
+    }
+
+    console.log(data.result);
+    setMealList(data.result);
+
+    // API call for shopping list
+    const response2 = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "text-davinci-003",
+        prompt: "Show numbered list all grocery items needed for these meals. Second show each recipe. Each recipe less than 6 ingredients" + selectedValues,
+        max_tokens: 1000,
+        temperature: 0,
+      }),
+    });
+
+    const data2 = await response2.json();
+    if (response2.status !== 200) {
+      throw data2.error || new Error(`Request failed with status ${response2.status}`);
+    }
+
+    console.log(data2.result);
+    setShoppingList(data2.result);
+  } catch (error) {
+    console.error(error);
   }
 }
