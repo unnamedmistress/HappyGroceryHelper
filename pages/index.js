@@ -4,7 +4,8 @@ import styles from "./index.module.css";
 
 export default function Home() {
   const [textInput, setTextInput] = useState("");
-  const [result, setResult] = useState(" ");
+  const [result, setResult] = useState([]);
+  const [selectedValues, setSelectedValues] = useState([]);
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -25,7 +26,6 @@ export default function Home() {
       setResult(data.result);
       setTextInput("");
     } catch(error) {
-      // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
     }
@@ -41,8 +41,7 @@ export default function Home() {
       <main className={styles.main}>
         <img src="/writingicon.png" className={styles.icon} />
         <h3>AutoCorrect on Steroids!</h3>
-        <p style={{fontFamily: "verdana"}}> Introducing a cutting-edge app that uses JavaScript, Node, React, and OpenAI API to provide the ultimate autocorrect solution. With this technology, I guarantee that you'll never have to worry about misspelled words or grammatical errors again. Just imagine sending an important email, and my app make all necessary text corrections. No more embarrassing typos, only flawless writing. Give it a try now and witness the difference for yourself. Use this sample text if you don't have any.</p>
-        <p>"Why due people say “break uh leg” wen u go awn staje? because eviry play has uh cast.Why ar their gates around cemetereis? because people ar dyin two jet inn."</p>
+        <p style={{fontFamily: "verdana"}}>Select your diet from the list (you can select more than one by holding Control).</p>
         <form onSubmit={onSubmit}>
           <textarea
             rows="10"
@@ -55,8 +54,37 @@ export default function Home() {
           <input type="submit" value="Edit text" />
           <p>Give me a few seconds, I'm new and a little slow</p>
         </form>
-        <div className={styles.result}>{result}</div>
-      </main>
-    </div>
+
+        {result.length > 0 && (
+            <><p>Please select 5 options:</p><select name="selected-options" multiple value={selectedValues}
+            onChange={(e) => setSelectedValues(Array.from(e.target.selectedOptions, (item) => item.value))}
+          >
+            {result.map((value, index) => (
+              <option key={index} value={value}>
+                {value}
+              </option>
+            ))}
+          </select><button
+            disabled={selectedValues.length !== 5}
+            onClick={() => {
+              alert(`Selected values: ${selectedValues.join(", ")}`);
+            } }
+          >
+              Submit
+            </button></>
+  )}
+</main>
+
+<footer className={styles.footer}>
+  <a
+    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Powered by <img src="/vercel.svg" alt="Vercel Logo" />
+  </a>
+</footer>
+</div>
   );
-}
+      }
+
