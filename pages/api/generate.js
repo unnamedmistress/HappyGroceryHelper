@@ -17,16 +17,6 @@ export default async function (req, res) {
 
   const text = req.body.text || '';
   const words = text.trim().split(/\s+/).length;
-
-  if (words < 5 || words > 250) {
-    res.status(400).json({
-      error: {
-        message: "Please enter a text input between 5 and 250 words",
-      }
-    });
-    return;
-  }
-
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
