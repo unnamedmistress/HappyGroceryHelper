@@ -23,14 +23,15 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
-      setTextInput("");
-    } catch(error) {
-      console.error(error);
-      alert(error.message);
-    }
+      console.log(data.result);
+    setResult(data.result);
+    setTextInput("");
+  } catch(error) {
+    console.error(error);
+    alert(error.message);
   }
-console.log(results);
+  }
+
   return (
     <div>
       <Head>
