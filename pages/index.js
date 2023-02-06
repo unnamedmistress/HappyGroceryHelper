@@ -71,11 +71,11 @@ export default function Home() {
             <><p>Please select 5 options:</p><select name="selected-options" multiple value={selectedValues}
             onChange={(e) => setSelectedValues(Array.from(e.target.selectedOptions, (item) => item.value))}
           >
-            {result.map((value, index) => (
+            {/* {result.map((value, index) => (
               <option key={index} value={value}>
                 {value}
               </option>
-            ))}
+            ))} */} console.log(result)
           </select><button
             disabled={selectedValues.length !== 5}
             onClick={() => {
@@ -86,11 +86,11 @@ export default function Home() {
             </button></>
   )}
 </main>
-
+console.log(selectedValues);
 <footer className={styles.footer}>
 
 </footer>
 </div>
-  );console.log(selectedValues);
+  );
       }
 
