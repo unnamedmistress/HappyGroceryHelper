@@ -1,4 +1,5 @@
-"experiments": {
-    "topLevelAwait": true
-  } 
-  
+{
+    "experiments": {
+      "topLevelAwait": true
+    }
+  }
