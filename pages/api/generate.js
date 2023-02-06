@@ -45,8 +45,7 @@ export default async function (req, res) {
   event.preventDefault();
   const [mealList, setMealList] = useState("");
   const [shoppingList, setShoppingList] = useState("");
-  const showShoppingList = () => {
-    setShowShoppingList(true);
+  setShowShoppingList(true);
   }
 
   try {
