@@ -91,6 +91,6 @@ export default function Home() {
 
 </footer>
 </div>
-  );
+  );console.log(selectedValues);
       }
 
