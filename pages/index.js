@@ -41,7 +41,7 @@ export default function Home() {
       <main className={styles.main} style={{backgroundColor: "coral"}}>
         <img src="https://thumbs.dreamstime.com/b/grocery-list-line-icon-vector-outline-illustration-shopping-food-checklist-supermarket-consumer-paper-pictorgam-180766401.jpg" className={styles.icon} />
         <h3>Market Maven</h3>
-        <p style={{fontFamily: "verdana"}}>Select your diet from the list (you can select more than one by holding Control).</p>
+        <p style={{fontFamily: "verdana"}}>Select your diet from the list to generate the meals you enjoy most</p>
         <form id="diettype" onSubmit={onSubmit}>
   <label htmlFor="diet">Choose a Diet:</label>
   <select
