@@ -39,22 +39,33 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <img src="/writingicon.png" className={styles.icon} />
-        <h3>AutoCorrect on Steroids!</h3>
+        <img src="https://thumbs.dreamstime.com/b/grocery-list-line-icon-vector-outline-illustration-shopping-food-checklist-supermarket-consumer-paper-pictorgam-180766401.jpg" className={styles.icon} />
+        <h3>Market Maven</h3>
         <p style={{fontFamily: "verdana"}}>Select your diet from the list (you can select more than one by holding Control).</p>
-        <form onSubmit={onSubmit}>
-          <textarea
-            rows="10"
-            cols="50"
-            name="text"
-            placeholder="Enter text (max 250 words)"
-            value={textInput}
-            onChange={(e) => setTextInput(e.target.value)}
-          />
-          <input type="submit" value="Edit text" />
-          <p>Give me a few seconds, I'm new and a little slow</p>
+        <form id="diettype" onSubmit={handleSubmit}>
+          <label htmlFor="diet">Choose a Diet:</label>
+          <select
+            name="diet"
+            id="dietoptions"
+            multiple
+            onChange={handleDietChange}
+          >
+            <option value="Omnivore">Omnivore/Standard Diet</option>
+            <option value="Vegan">Vegan</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Mediterranean">Mediterranean</option>
+            <option value="Low-carb">Low-carb</option>
+            <option value="Latin">Latin</option>
+            <option value="Keto">Keto</option>
+          </select>
+          <br />
+          <br />
+          <input type="submit" value="Submit" />
         </form>
-
+        <p>
+          Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.
+        </p>
+ <p>Give me a few seconds, I'm new and a little slow</p>
         {result.length > 0 && (
             <><p>Please select 5 options:</p><select name="selected-options" multiple value={selectedValues}
             onChange={(e) => setSelectedValues(Array.from(e.target.selectedOptions, (item) => item.value))}
@@ -76,13 +87,7 @@ export default function Home() {
 </main>
 
 <footer className={styles.footer}>
-  <a
-    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Powered by <img src="/vercel.svg" alt="Vercel Logo" />
-  </a>
+
 </footer>
 </div>
   );
