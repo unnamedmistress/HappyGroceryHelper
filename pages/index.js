@@ -68,14 +68,10 @@ export default function Home() {
  <p>Give me a few seconds, I'm new and a little slow</p>
 
 
-      {result.length > 0 && (
+ {result.length > 0 && (
   <>
     <h4>API Results:</h4>
-    <ul>
-      {result.map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
-    </ul>
+    <p>{result.join(", ")}</p>
   </>
 )}
 
