@@ -30,7 +30,7 @@ export default function Home() {
       alert(error.message);
     }
   }
-
+console.log(results);
   return (
     <div>
       <Head>
@@ -69,21 +69,10 @@ export default function Home() {
 
 
  {result.length > 0 && (
-<>
-<h4>API Results:</h4>
-<form>
-<select multiple required size={5}>
-{result.map((meal, index) => (
-<option key={index} value={meal}>
-{meal}
-</option>
-))}
-</select>
-<br />
-<br />
-<button type="submit">Submit</button>
-</form>
-</>
+  <>
+    <h4>API Results:</h4>
+    <p>{result}</p>
+  </>
 )}
 
 
