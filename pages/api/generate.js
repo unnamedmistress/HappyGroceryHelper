@@ -21,7 +21,7 @@ export default async function (req, res) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       // PROMPT GOES HERE// To Do: add your own prompt here
-      prompt: "show a list of top 10 meals for this diet type, less than 6 ingredients, include one breakfast and one lunch, 8 dinners" + text + "\n\n",
+      prompt: "show a list of top 10 meals for this diet type, less than 6 ingredients, include one breakfast and one lunch, 8 dinners" + text,
       ///PROMPT ENDS HERE
       max_tokens: 250,
       temperature: 0,

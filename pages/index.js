@@ -71,7 +71,7 @@ export default function Home() {
  {result.length > 0 && (
   <>
     <h4>API Results:</h4>
-    <p>{result.join(", ")}</p>
+    <p>{result}</p>
   </>
 )}
 
