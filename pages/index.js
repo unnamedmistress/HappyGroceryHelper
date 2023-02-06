@@ -34,8 +34,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>AI Editor</title>
-        <link rel="icon" href="/writingicon.png" />
+        <title>Market Maven</title>
       </Head>
 
       <main className={styles.main} style={{backgroundColor: "coral"}}>
@@ -67,30 +66,28 @@ export default function Home() {
           Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.
         </p>
  <p>Give me a few seconds, I'm new and a little slow</p>
-        {result.length > 0 && (
-            <><p>Please select 5 options:</p><select name="selected-options" multiple value={selectedValues}
-            onChange={(e) => setSelectedValues(Array.from(e.target.selectedOptions, (item) => item.value))}
-          >
-            {/* {result.map((value, index) => (
-              <option key={index} value={value}>
-                {value}
-              </option>
-            ))} */} console.log(result)
-          </select><button
-            disabled={selectedValues.length !== 5}
-            onClick={() => {
-              alert(`Selected values: ${selectedValues.join(", ")}`);
-            } }
-          >
-              Submit
-            </button></>
-  )}
+
+
+      {result.length > 0 && (
+  <>
+    <h4>API Results:</h4>
+    <ul>
+      {result.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  </>
+)}
+
+
+
 </main>
-console.log(selectedValues);
+  
 <footer className={styles.footer}>
 
 </footer>
 </div>
   );
       }
+
 
