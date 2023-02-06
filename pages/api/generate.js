@@ -1,5 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 const [showShoppingList, setShowShoppingList] = useState(false);
+import { useState } from 'react';
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -95,4 +96,3 @@ export default async function (req, res) {
   } catch (error) {
     console.error(error);
   }
-}
