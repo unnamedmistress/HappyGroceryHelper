@@ -68,20 +68,16 @@ export default function Home() {
         </p>
  <p>Give me a few seconds, I'm new and a little slow</p>
 
-
  {result.length > 0 && (
   <>
     <h4>API Results:</h4>
-    <p>{result}</p>
+    {result.split(".").map((sentence, index) => (
+      <p key={index}>{index + 1 + ". " + sentence}</p>
+    ))}
   </>
 )}
-
-
-
 </main>
-  
 <footer className={styles.footer}>
-
 </footer>
 </div>
   );
