@@ -22,9 +22,8 @@ function MarketMaven() {
       const response = await openai.createCompletion(
         { prompt: `list of meals for ${diet} name of meals limited to 3 words or less, include a breakfast and lunch but do not label it that way, return results in comma separated list`,
           model: "text-davinci-003",
-          prompt: "Say this is a test",
           max_tokens: 200,
-          temperature: 0,
+          temperature: 0
         });
       setMealList(response.choices[0].text);
     } catch (error) {
@@ -44,9 +43,9 @@ function MarketMaven() {
       const response = await openai.createCompletion(
         {
           model: "text-davinci-003",
-          prompt: `Send complete grocery list for 4 adults for all these meals total and recipe for each ${e.target.value}, separate all values by comma and return results in comma separated list`,
+          prompt: `Send complete grocery list for 4 adults for all these meals total amounts and recipe for each meal: ${e.target.value}, separate all values by comma and return results in comma separated list`,
           max_tokens: 1000,
-          temperature: 0,
+          temperature: 0
         });
       setShowShoppingList(true);
       setShoppingList(response.choices[0].text);
