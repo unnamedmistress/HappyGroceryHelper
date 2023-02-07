@@ -19,13 +19,14 @@ function MarketMaven() {
     const diet = selectedValues.join(',');
     try {
       // Call the first API to get the list of meals based on the selected diet
-      const response = await openai.createCompletion(
-        { prompt: `list of meals for ${diet} name of meals limited to 3 words or less, include a breakfast and lunch but do not label it that way, return results in comma separated list`,
-          model: "text-davinci-003",
+      const createCompletion = await openai.createCompletion(
+        {  model: "text-davinci-003",
+          prompt: `list of meals for ${diet} name of meals limited to 3 words or less, include a breakfast and lunch but do not label it that way, return results in comma separated list`,
           max_tokens: 200,
           temperature: 0
         });
-      setMealList(response.choices[0].text);
+      setMealList(createCompletion.choices[0].text);
+      console.log(createCompletion.choices);
     } catch (error) {
       console.error(error);
       setError(error);
@@ -54,6 +55,10 @@ function MarketMaven() {
       setError(error);
     }
   };
+  console.log('selectedValues', selectedValues);
+  console.log('mealList', mealList);
+  console.log('shoppingList', shoppingList);
+
 
   return (
     <div>
