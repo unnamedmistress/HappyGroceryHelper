@@ -1,105 +1,66 @@
-import Head from "next/head";
-import { useState } from "react";
-import styles from "./index.module.css";
+import React, { useState } from 'react';
+import Head from 'next/head';
+// import styles from './marketmaven.module.css';
 
-export default function Home() {
-  const [textInput, setTextInput] = useState("");
-  const [result, setResult] = useState([]);
+const MarketMaven = () => {
   const [selectedValues, setSelectedValues] = useState([]);
+  const [mealList, setMealList] = useState('');
+  const [showShoppingList, setShowShoppingList] = useState(false);
+  const [shoppingList, setShoppingList] = useState('');
+  const [error, setError] = useState(null);
 
-  async function onSubmit(event) {
-    event.preventDefault();
-    try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: textInput }),
-      });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const diet = selectedValues.join(',');
+  };
 
-      const data = await response.json();
-      if (response.status !== 200) {
-        throw data.error || new Error(`Request failed with status ${response.status}`);
-      }
-
-      console.log(data.result);
-    setResult(data.result);
-    setTextInput("");
-  } catch(error) {
-    console.error(error);
-  }
-  }
+  const handleSelection = async (e) => {
+    if (!e.target.checked) {
+      setShowShoppingList(false);
+      setShoppingList('');
+      return;
+    }
+  };
 
   return (
     <div>
       <Head>
         <title>Market Maven</title>
       </Head>
-
       <main className={styles.main} style={{backgroundColor: "coral"}}>
         <img src="https://thumbs.dreamstime.com/b/grocery-list-line-icon-vector-outline-illustration-shopping-food-checklist-supermarket-consumer-paper-pictorgam-180766401.jpg" className={styles.icon} />
         <h3>Market Maven</h3>
-        <p style={{fontFamily: "verdana"}}>Select your diet from the list to generate the meals you enjoy most</p>
-        <form id="diettype" className={styles.form} onSubmit={onSubmit}>
-  <label htmlFor="diet">Choose a Diet:</label>
-  <select
-    name="diet"
-    id="dietoptions"
-    multiple
-    value={selectedValues}
-    onChange={(e) => setSelectedValues(Array.from(e.target.selectedOptions, (item) => item.value))}
-  >
-    <option value="Omnivore">Omnivore/Standard Diet</option>
-    <option value="Vegan">Vegan</option>
-    <option value="Vegetarian">Vegetarian</option>
-    <option value="Mediterranean">Mediterranean</option>
-    <option value="Low-carb">Low-carb</option>
-    <option value="Latin">Latin</option>
-    <option value="Keto">Keto</option>
-  </select>
-  <br />
-  <br />
-  <input type="submit" value="Submit" />
-</form>
-        <p>
-          Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.
-        </p>
- <p>Give me a few seconds, I'm new and a little slow</p>
- {result.map((meal, i) => {
-return (
-<div key={i}>
-<input type="checkbox" value={meal} onChange={(e) => {
-const selected = e.target.value;
-if (selectedValues.includes(selected)) {
-setSelectedValues(selectedValues.filter((value) => value !== selected));
-} else {
-setSelectedValues([...selectedValues, selected]);
-}
-}} />
-{meal}
-</div>
-);
-})}
-
-<button onClick={() => setShowShoppingList(true)}>
-  Show Shopping List
-</button>
-
-{showShoppingList && (
-  <div>
-    {shoppingList}
+        <form onSubmit={handleSubmit}>
+        <div>
+        <input type="checkbox" value="Omnivore/Standard-American" onChange={handleSelection} /> Omnivore/Standard-American
+          <input type="checkbox" value="Vegetarian" onChange={handleSelection} /> Vegetarian
+          <input type="checkbox" value="Gluten-free" onChange={handleSelection} /> Gluten-free
+          <input type="checkbox" value="Paleo" onChange={handleSelection} /> Paleo
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      {mealList && (
+        <div>
+          <h4>Meals for selected diet:</h4>
+          {mealList.split(', ').map((meal, index) => (
+            <div key={index}>
+              <input type="radio" name="meal" value={meal} onChange={handleSelection} />
+              {meal}
+            </div>
+          ))}
+        </div>
+      )}
+      {showShoppingList && (
+        <div>
+          <h4>Shopping List and Recipes:</h4>
+          <p>{shoppingList}</p>
+        </div>
+      )}
+    </main>
   </div>
-)}
-  <div>
-    <div>{mealList}</div>
-    <div>{shoppingList}</div>
-  </div>
-</main>
-<footer className={styles.footer}>
-</footer>
-</div>
   );
-      }
+};
+
+export default MarketMaven;
 
 
