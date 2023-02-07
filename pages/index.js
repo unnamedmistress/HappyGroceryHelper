@@ -8,19 +8,41 @@ const MarketMaven = () => {
   const [showShoppingList, setShowShoppingList] = useState(false);
   const [shoppingList, setShoppingList] = useState('');
   const [error, setError] = useState(null);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const diet = selectedValues.join(',');
-  };
-
-  const handleSelection = async (e) => {
-    if (!e.target.checked) {
-      setShowShoppingList(false);
-      setShoppingList('');
-      return;
+    try {
+    // Call the first API to get the list of meals based on the selected diet
+    const response = await openai.enginesApi.postJob("text-davinci-003", {
+    prompt: `list of meals for ${diet} name of meals limited to 3 words or less, include a breakfast and lunch but do not label it that way, return results in comma separated list`,
+    max_tokens: 100,
+    });
+    setMealList(response.choices[0].text);
+    } catch (error) {
+    console.error(error);
+    setError(error);
     }
-  };
+    };
+    
+    const handleSelection = async (e) => {
+    if (!e.target.checked) {
+    setShowShoppingList(false);
+    setShoppingList('');
+    return;
+    }
+    try {
+    // Call the second API to get the grocery list and recipes for the selected meal
+    const response = await openai.enginesApi.postJob("text-davinci-003", {
+    prompt: `Send complete grocery list for 4 adults for all these meals total and recipe for each ${e.target.value}, separate all values by comma and return results in comma separated list`,
+    max_tokens: 100,
+    });
+    setShowShoppingList(true);
+    setShoppingList(response.choices[0].text);
+    } catch (error) {
+    console.error(error);
+    setError(error);
+    }
+    };
 
   return (
     <div>
