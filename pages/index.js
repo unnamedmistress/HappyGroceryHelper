@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-// import styles from './marketmaven.module.css';
+import styles from './index.module.css';
 
 const MarketMaven = () => {
   const [selectedValues, setSelectedValues] = useState([]);
